@@ -1,17 +1,17 @@
 package algorithm;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.math3.util.Precision;
 
 import problem.Grid;
-import problem.NoPath;
 import problem.Grid.Coord;
+import problem.NoPath;
 import problem.Path;
 import problem.Scenario;
 
@@ -29,9 +29,10 @@ public class AStar extends Algorithm {
 		
 		Algorithm d = new AStar(g);
 		
-		final int REPEATS = 100;
+		final int REPEATS = 10;
 		int passes = 0;
 		int count = 0;
+		long startTime = System.nanoTime();
 		for (Scenario ss : s) {
 			for (int rpt = 0; rpt < REPEATS; rpt++) {
 				Path p = d.getPath(ss);
@@ -42,8 +43,11 @@ public class AStar extends Algorithm {
 				}
 			}
 		}
-		System.out.println(passes + "/" + s.size());
 		
+		long endTime = System.nanoTime();
+		System.out.println("Shortest path found for " + passes + "/" + (REPEATS * s.size()));
+		System.out.println("Total time: " + (endTime - startTime) / 1000000000.0 + "s");
+		System.out.println("Avg time per path: " + (endTime - startTime) / ((REPEATS * s.size()) * 1000000.0) + "ms");
 		
 	}
 	
@@ -59,7 +63,7 @@ public class AStar extends Algorithm {
 	
 	@Override
 	public Path getPath(Scenario scenario) {
-		Map<Coord,Label> labels = new HashMap<Coord,Label>();
+		Map<Coord,Label> labels = new TreeMap<Coord,Label>();//new HashMap<Coord,Label>();
 		PriorityQueue<Label> heap = new PriorityQueue<>();
 		boolean[][] visited = new boolean[grid.getWidth()][grid.getHeight()];
 		

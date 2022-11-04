@@ -79,7 +79,7 @@ public class Grid {
 	
 	public enum CellType { PassableTerrain, OutOfBounds, Trees, Swamp, Water }
 	
-	public static class Coord {
+	public static class Coord implements Comparable<Coord> {
 		private final int x;
 		private final int y;
 		
@@ -104,12 +104,21 @@ public class Grid {
 		
 		@Override
 		public boolean equals(Object that) {
-			return this.x == ((Coord)that).x && this.y == ((Coord)that).y;
+			return this.toString() == that.toString();
 		}
 		
 		@Override
 		public int hashCode() {
-			return Integer.hashCode(x * y);
+			return toString().hashCode();
+		}
+		
+		@Override
+		public int compareTo(Coord that) {
+			int cmp = Integer.compare(this.x, that.x);
+			if (cmp == 0) {
+				cmp = Integer.compare(this.y, that.y);
+			}
+			return cmp;
 		}
 		
 		@Override

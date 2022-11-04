@@ -66,7 +66,7 @@ public class GridsCanvas extends JFrame {
 			
 			// then path if it exists
 			if (path != null) {
-				gfx.setColor(Color.BLACK);
+				gfx.setColor(Color.MAGENTA);
 
 				Stroke s = ((Graphics2D)gfx).getStroke();
 				((Graphics2D)gfx).setStroke(new BasicStroke(Math.max(1, (rowHeight + colWidth) / 10)));
@@ -115,7 +115,7 @@ public class GridsCanvas extends JFrame {
 		this.grid = g;
 		this.path = p;
 		
-		GridPanel xyz = new GridPanel(400, 400);
+		GridPanel xyz = new GridPanel(800, 800);
 		add(xyz);
 		pack();
 		
