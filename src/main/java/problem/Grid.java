@@ -104,7 +104,7 @@ public class Grid {
 		
 		@Override
 		public boolean equals(Object that) {
-			return this.toString() == that.toString();
+			return this.toString().equals(that.toString());
 		}
 		
 		@Override
